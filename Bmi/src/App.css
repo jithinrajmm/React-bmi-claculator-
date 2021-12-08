@@ -1,0 +1,7 @@
+.App{
+    background-image: url('./images/trees.jpg');
+    height: 100vh;
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+}

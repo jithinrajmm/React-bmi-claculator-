@@ -1,7 +1,8 @@
 
 
-function Bmiscore ({bmi,bmitype}){
+function Bmiscore ({bmi,bmitype,controllWeight}){
     // destriructuring props
+    console.log(controllWeight,"😎")
 
     //const {bmi,bmitype} = props
     // we can simplify this, just pass the varibles directly to argument where the place of props argument
@@ -16,7 +17,10 @@ function Bmiscore ({bmi,bmitype}){
                {bmitype}
 
            </div>
-           <div className="h5 text-dark"><q>you have to reduce <span className="text-danger">12 </span>kg</q></div>
+           {controllWeight.type === "positive"?
+           <div className="h5 text-dark"><q>you have to reduce <span className="text-danger">{controllWeight.weight} </span>kg</q></div>: controllWeight.type==="negative" ?
+           <div className="h5 text-dark"><q>you have to increase <span className="text-danger">{controllWeight.weight}</span>kg</q></div>:
+           <div className="h5 text-dark">You have NORMAL weight ❤</div>}
          
      
         </div>

@@ -43,7 +43,7 @@ export default function Bmilist({range,bmi}) {
             </div>
           </li>
           <li className="list-group-item">
-            <div className="row" style={bmi < 35 && bmi <30 ? border: null}>
+            <div className="row" style={bmi < 35 && bmi >30 ? border: null}>
               <div className="col col-md-4 "> Obesity Class I</div>
               <div className="col col-md-4 ">30 - 34.9 </div>
               <div className="col col-md-4 ">{range.obesityOne.low}-{range.obesityOne.high}</div>

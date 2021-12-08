@@ -3,9 +3,13 @@ import Form from "./components/Form";
 import Bmiscore from "./components/Bmiscore";
 import Bmilist from "./components/Bmilist";
 import { useState } from "react";
+ 
 
 
 function App() {
+
+  // this element for styling the background
+  
   // let bmi = 18;
   const [bmi, setbmi] = useState(0);
   const [bmitype, setBmiType] = useState("Not calculated");
@@ -20,6 +24,7 @@ function App() {
       obesityThree : {high : ""}
     }
   );
+  const [controllWeight, setcontrollWeight] = useState({weight:'',type:''})
 
   
 
@@ -53,6 +58,7 @@ function App() {
       obesityThree : {high : claculateWeight(40,heightC)}
     }
     setbmirange(range);
+    setcontrollWeight(weightChange(finalbmi,weightC,range))
   };
 
   // this arrow function we can write in simple 
@@ -63,10 +69,36 @@ function App() {
   const calculateBmi = (weight,height)=> (weight/(height*height)).toFixed(2);
   const claculateWeight = (bmivalue,height) => (bmivalue * height * height).toFixed(2);
 
-  // find the bmtype using a function , and use if else to find the bmitype
-  
-  
+  // We need a function to calculate the needed weight for a human being
+  const  weightChange = (bmival,weightOriginal,range) => {
+    let reduceWeight;
+    if (bmival>24.9){
+      reduceWeight= {
+        weight:(weightOriginal- range.Normal.high).toFixed(2),
+        type:"positive"
+      }
+    return reduceWeight;
+     
+    }
+    else if (bmi<18.5){
+      reduceWeight = {
+        weight:(range.Normal.low - weightOriginal),
+        type: "negati"
+      }
+      return reduceWeight
+    }
+    else {
+      reduceWeight={
+        weight : '',
+        type : "normal"
+      }
+      return reduceWeight;
+    }
 
+  }
+
+  // find the bmtype using a function , and use if else to find the bmitype
+ 
   const bmiTypeSelection = (bmi) =>{
     if(bmi<18.5){
       return "Under weight";
@@ -91,7 +123,8 @@ function App() {
 
   return (
     <>
-      <div className="container-fluid">
+      <div className="container-fluid App" >
+        
         <div className="row p-2 justify-content-center">
           <Form getForm={formValues} />
           {/* disign form using bootstrap */}
@@ -99,7 +132,7 @@ function App() {
         {bmiPresent === true ?
         <div className="row justify-content-center">
           <div className="col col-12 col-md-5">
-            <Bmiscore bmi={bmi} bmitype= {bmitype} />
+            <Bmiscore bmi={bmi} bmitype= {bmitype} controllWeight = {controllWeight}/>
           </div>
           <div className="col mt-2 col-12 col-md-7">
             <Bmilist range = {bmirange} bmi = {bmi}></Bmilist>
